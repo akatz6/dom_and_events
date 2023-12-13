@@ -2,30 +2,30 @@ const app = document.getElementById("app");
 app.style.width = "80%";
 app.style.margin = "0 auto";
 
-const form = document.getElementsByTagName("form");
-form[0].style.width = "80%";
-form[0].style.margin = "0 auto";
+const form = document.getElementsByTagName("form")[0];
+form.style.width = "80%";
+form.style.margin = "0 auto";
 
-const arrSports = [
+const arrSport = [
   {
-    team: "Cubs",
+    name: "Cubs",
     city: "Chicago",
     sport: "Baseball",
   },
   {
-    team: "Bears",
+    name: "Bears",
     city: "Chicago",
     sport: "Football",
   },
   {
-    team: "Bulls",
+    name: "Bulls",
     city: "Chicago",
     sport: "Basketball",
   },
   {
-    team: "Blackhawks",
+    name: "Blackhawks",
     city: "Chicago",
-    sport: "Hockey",
+    sport: "hockey",
   },
 ];
 
@@ -40,7 +40,7 @@ const tr = document.createElement("tr");
 thead.appendChild(tr);
 
 const thName = document.createElement("th");
-thName.innerHTML = "Team Name";
+thName.innerHTML = "Name";
 tr.appendChild(thName);
 
 const thCity = document.createElement("th");
@@ -54,34 +54,13 @@ tr.appendChild(thSport);
 const tbody = document.createElement("tbody");
 table.appendChild(tbody);
 
-const addToSportsArray = (e) => {
-  e.preventDefault();
-  const team = document.getElementById("team").value;
-  const city = document.getElementById("city").value;
-  const sport = document.getElementById("sport").value;
-
-  obj = {
-    team,
-    city,
-    sport,
-  };
-  arrSports.push(obj);
-  for (var i = 1; i < table.rows.length; ) {
-    table.deleteRow(i);
-  }
-  display();
-};
-
-const button = document.getElementById("submitButton");
-button.addEventListener("click", addToSportsArray);
-
 const display = () => {
-  arrSports.forEach((element) => {
+  arrSport.forEach((element) => {
     const trBody = document.createElement("tr");
     tbody.appendChild(trBody);
 
     const tdName = document.createElement("td");
-    tdName.innerHTML = element.team;
+    tdName.innerHTML = element.name;
     trBody.appendChild(tdName);
 
     const tdCity = document.createElement("td");
@@ -94,4 +73,25 @@ const display = () => {
   });
 };
 
+const addToArray = (e) => {
+  e.preventDefault();
+
+  const sport = document.getElementById("sport").value;
+  const city = document.getElementById("city").value;
+  const team = document.getElementById("team").value;
+
+  const obj = {
+    name: team,
+    city,
+    sport,
+  };
+  arrSport.push(obj);
+  for (let i = 1; i < table.rows.length; ) {
+    table.deleteRow(i);
+  }
+  display();
+};
+
+const button = document.getElementById("button");
+button.addEventListener("click", addToArray);
 display();
