@@ -1,15 +1,16 @@
-console.log("hello");
+const app = document.getElementById("app");
+app.style.width = "80%";
+app.style.margin = "0 auto";
 
-const arr = [
+const form = document.getElementsByTagName("form");
+form[0].style.width = "80%";
+form[0].style.margin = "0 auto";
+
+const arrSports = [
   {
     team: "Cubs",
     city: "Chicago",
     sport: "Baseball",
-  },
-  {
-    team: "Bulls",
-    city: "Chicago",
-    sport: "Basketball",
   },
   {
     team: "Bears",
@@ -17,7 +18,12 @@ const arr = [
     sport: "Football",
   },
   {
-    team: "BlackHawks",
+    team: "Bulls",
+    city: "Chicago",
+    sport: "Basketball",
+  },
+  {
+    team: "Blackhawks",
     city: "Chicago",
     sport: "Hockey",
   },
@@ -25,67 +31,67 @@ const arr = [
 
 const table = document.createElement("table");
 table.className = "table";
-const thead = document.createElement("thead");
-thead.className = "thead-dark";
-const tr = document.createElement("tr");
-const team = document.createElement("th");
-team.innerHTML = "Team";
-tr.appendChild(team);
-const city = document.createElement("th");
-city.innerHTML = "City";
-tr.appendChild(city);
-const sport = document.createElement("th");
-sport.innerHTML = "Sport";
-tr.appendChild(sport);
-thead.appendChild(tr);
-table.appendChild(thead);
-document.getElementById("array").append(table);
+app.appendChild(table);
 
-const body = document.getElementsByTagName("body");
-body[0].style.width = "80%";
-body[0].style.margin = "0 auto";
+const thead = document.createElement("thead");
+table.appendChild(thead);
+
+const tr = document.createElement("tr");
+thead.appendChild(tr);
+
+const thName = document.createElement("th");
+thName.innerHTML = "Team Name";
+tr.appendChild(thName);
+
+const thCity = document.createElement("th");
+thCity.innerHTML = "City";
+tr.appendChild(thCity);
+
+const thSport = document.createElement("th");
+thSport.innerHTML = "Sport";
+tr.appendChild(thSport);
 
 const tbody = document.createElement("tbody");
+table.appendChild(tbody);
 
-const addToArray = (e) => {
+const addToSportsArray = (e) => {
   e.preventDefault();
-  console.log("I am in add to array");
   const team = document.getElementById("team").value;
-  const sport = document.getElementById("sport").value;
   const city = document.getElementById("city").value;
-  const obj = {
+  const sport = document.getElementById("sport").value;
+
+  obj = {
     team,
     city,
     sport,
   };
-  console.log(obj);
-  arr.push(obj);
+  arrSports.push(obj);
   for (var i = 1; i < table.rows.length; ) {
     table.deleteRow(i);
   }
-  setArray();
+  display();
 };
 
-const setArray = () => {
-  arr.forEach((element) => {
-    const trInfo = document.createElement("tr");
-    const teamData = document.createElement("td");
-    teamData.innerHTML = element.team;
-    trInfo.appendChild(teamData);
+const button = document.getElementById("submitButton");
+button.addEventListener("click", addToSportsArray);
 
-    const cityData = document.createElement("td");
-    cityData.innerHTML = element.city;
-    trInfo.appendChild(cityData);
+const display = () => {
+  arrSports.forEach((element) => {
+    const trBody = document.createElement("tr");
+    tbody.appendChild(trBody);
 
-    const sportData = document.createElement("td");
-    sportData.innerHTML = element.sport;
-    trInfo.appendChild(sportData);
+    const tdName = document.createElement("td");
+    tdName.innerHTML = element.team;
+    trBody.appendChild(tdName);
 
-    tbody.appendChild(trInfo);
+    const tdCity = document.createElement("td");
+    tdCity.innerHTML = element.city;
+    trBody.appendChild(tdCity);
+
+    const tdSport = document.createElement("td");
+    tdSport.innerHTML = element.sport;
+    trBody.appendChild(tdSport);
   });
 };
 
-setArray();
-table.appendChild(tbody);
-
-document.getElementById("button").addEventListener("click", addToArray);
+display();
